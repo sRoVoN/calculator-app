@@ -45,15 +45,14 @@ function Button({value, setActiveOperator, activeOperator}) {
         setCalc({
           sign: value,
           res: calc.res,
-          num: 0, // Keep num 0 until another number is entered
+          num: 0, 
         });
       } else {
-        setActiveOperator(value); // Set active operator when clicked
+        setActiveOperator(value); 
         setCalc({
           sign: value,
           res: calc.num,
-          num: 0, // Set num to 0 for new number input after operator
-        });
+          num: 0, 
       }
     }
     const equalsClick = () => {
