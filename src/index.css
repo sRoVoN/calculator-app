@@ -27,7 +27,9 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+.responsive-text {
+  font-size: calc(10px + 2vw); /* Responsive font size */
+}
 .wrapper{
   background-color: gray;
   width: 20rem;
