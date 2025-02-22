@@ -53,6 +53,7 @@ function Button({value, setActiveOperator, activeOperator}) {
           sign: value,
           res: calc.num,
           num: 0, 
+        });
       }
     }
     const equalsClick = () => {
