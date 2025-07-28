@@ -41,42 +41,62 @@ function Button({value, setActiveOperator, activeOperator}) {
     }
 //  User Click Operation
     const signClick = () => {
-      if (calc.num === 0 && calc.res !== "0") {
-        setCalc({
-          sign: value,
-          res: calc.res,
-          num: 0, 
-        });
-      } else {
-        setActiveOperator(value); 
-        setCalc({
-          sign: value,
-          res: calc.num,
-          num: 0, 
-        });
-      }
-    }
-    const equalsClick = () => {
-        const math = (a, b, sign) => {
-          const result = {
-            "+": (a,b) => a + b,
-            "-": (a,b) => (a - b) * -1,
-            "X": (a,b) => a * b,
-            "/": (a,b) => a / b,
-          }
-          return result[sign](a,b)
-        }          
-        const result = math(calc.num, calc.res, calc.sign);
-        const roundedResult = result.toFixed(2); 
-      setCalc( () => {
-       return {
-        res: parseFloat(roundedResult), 
-            sign: "",    
-            num: 0       
-        };
-      });
+      const isNumEmpty = calc.num === 0 || calc.num === "0" || calc.num === null || calc.num === "";
+  if (isNumEmpty && calc.res && calc.sign) {
+    
+    setCalc(prev => ({
+      ...prev,
+      sign: value
+    }));
+     setActiveOperator(value);
+  } else {
+       setCalc({
+      sign: value,
+      res: calc.num || calc.res, 
+      num: 0,
+    });
+    setActiveOperator(value);
+  }
+}
 
+    const equalsClick = () => {
+  // اگر هیچ عملگری انتخاب نشده یا عدد اول یا دوم وجود نداره، عملیات رو انجام نده
+  if (!calc.sign || calc.num === null || calc.res === null) return;
+
+  // اگر کاربر تقسیم بر صفر کرده
+  if (calc.sign === "/" && Number(calc.num) === 0) {
+    alert("تقسیم بر صفر مجاز نیست");
+    return;
+  }
+
+  const math = (a, b, sign) => {
+    const result = {
+      "+": (a, b) => a + b,
+      "-": (a, b) => (a - b),
+      "X": (a, b) => a * b,
+      "/": (a, b) => a / b,
+    };
+
+    // فقط اگر sign معتبره، ادامه بده
+    if (!result[sign]) {
+      return 0;
     }
+
+    return result[sign](a, b);
+  };
+
+  const result = math(Number(calc.res), Number(calc.num), calc.sign);
+  const roundedResult = result.toFixed(2);
+
+  setCalc({
+  res: parseFloat(roundedResult),
+  sign: "",
+  num: 0,
+   });
+  setActiveOperator(false);
+    }
+
+
     const percentClick = () => {
       setCalc({
         num: (calc.num / 100),
