@@ -3,12 +3,13 @@ export const comaClick = (setCalc, calc) => {
     setCalc({ ...calc, num: calc.num + "." });
   }
 };
-export const resetClick = (setCalc) => {
+export const resetClick = (setCalc, setActiveOperator) => {
   setCalc({
     sign: "",
     num: 0,
     res: 0,
   });
+  setActiveOperator(false);
 };
 export const signClick = (calc, setActiveOperator, setCalc, value) => {
   const isNumEmpty =

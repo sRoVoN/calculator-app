@@ -31,7 +31,7 @@ function Button({ value, activeOperator, setActiveOperator }) {
   const handleClick = (value) => {
     const results = {
       ".": () => comaClick(setCalc, calc),
-      "C": () => resetClick(setCalc),
+      "C": () => resetClick(setCalc, setActiveOperator),
       "+": () => signClick(calc, setActiveOperator, setCalc, value),
       "-": () => signClick(calc, setActiveOperator, setCalc, value),
       "X": () => signClick(calc, setActiveOperator, setCalc, value),
